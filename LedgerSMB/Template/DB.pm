@@ -5,6 +5,8 @@ LedgerSMB::Template::DB - Template administration functions for LedgerSMB
 =cut
 
 package LedgerSMB::Template::DB;
+use Carp qw(cluck);
+use Data::Dumper;
 use Moose;
 with 'LedgerSMB::DBObject_Moose', 'LedgerSMB::I18N';
 
@@ -63,10 +65,12 @@ Returns a scalar ref to the template text so that Template Toolkit can run it.
 
 sub get_template {
     my ($module, $template_name, $language_code, $format) = @_;
+    #cluck "Calling template__get(${template_name}, ${language_code}, ${format})";
     my ($temp) = __PACKAGE__->call_procedure(
          procname => 'template__get',
          args => [$template_name, $language_code, $format]
-    );
+        );
+    #print Dumper($temp);
     my $text = $temp->{template};
     die text('Could Not Load Template from DB') unless $text;
     $temp = __PACKAGE__->new($temp);

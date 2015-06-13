@@ -167,9 +167,6 @@ sub available_formats {
     if (eval {require LedgerSMB::Template::LaTeX}){
         push @retval, 'PDF', 'PS';
     }
-    if (eval {require LedgerSMB::Template::XLS}){
-        push @retval, 'XLS';
-    }
     if (eval {require LedgerSMB::Template::ODS}){
         push @retval, 'ODS';
     }
